@@ -29,6 +29,8 @@ jobs:
 
           # Additional options to customize the generated lowlighter metrics
           user: HofiOne
+          template: classic
+          base: header, activity, community, repositories, metadata
           config_display: large
           config_octicon: yes
           config_timezone: Europe/Budapest
