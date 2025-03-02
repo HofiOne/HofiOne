@@ -1488,7 +1488,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
                                 <path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"/>
                             </svg>
-                            64 comments
+                            66 comments
                         </div>
                     </section>
                     <section class="largeable-column-fields">
@@ -1711,7 +1711,7 @@ the app activated after this policy not always get placed front in the applicati
 This one works perfectly
                                         <code class="language-multiline" xml:space="preserve">// in file A.h
 typedef struct _A {
-<span class="token trimmed">(6 more lines were trimmed)</span></code>
+<span class="token trimmed">(8 more lines were trimmed)</span></code>
                                         in the generated documentation
 
 both A and B treated as class definitions
@@ -1721,7 +1721,7 @@ the generated graph in details of B(_B) shows the correct "inheritance" B-&gt;A
 but this one fails
                                         <code class="language-multiline" xml:space="preserve">// in file A.h
 // adding    struct _A    here will not make any difference
-<span class="token trimmed">(10 more lines were trimmed)</span></code>
+<span class="token trimmed">(12 more lines were trimmed)</span></code>
                                         in which case
 
 both A and B treated as class definitions
@@ -1733,7 +1733,7 @@ using the direct Doxygen command
                                         like
                                         <code class="language-multiline" xml:space="preserve">// in file A.h
 /** \class _A */
-<span class="token trimmed">(10 more lines were trimmed)</span></code>
+<span class="token trimmed">(12 more lines were trimmed)</span></code>
                                         makes this a bit better, but introduces new issues
 
 both A and B treated as class definitions, but a will be double defined
@@ -1742,6 +1742,23 @@ all the mentions of A and B are linked correctly to the A(_A) and B(_B)
 the generated graph in details of B(_B) points to the duplicated variant of A(_A)
 
 As you can see in example 2, I have to use the forward declarations sometimes, no other option.
+Real life reproduction of the problem
+                                        <code class="language-multiline" xml:space="preserve">git clone -b add-doxygen-file https://github.com/HofiOne/syslog-ng.git
+cd syslog-ng
+<span class="token trimmed">(2 more lines were trimmed)</span></code>
+                                        and 
+
+open ./build/doc/index.html
+in the left the navigation bar open syslog-ng
+                                        <code>source\Classes\Class List\AFSocketSourceDriver</code>
+                                        (in the example A(_A)
+looks nice and clean
+then, in the left the navigation bar open
+                                        <code>syslog-ng source\Classes\Class List\AFInetSourceDriver</code>
+                                        (in the example B(_B)
+try to click AFSocketSourceDriver anywhere, that should be a link to the AFSocketSourceDriver class (in the example A(_A), but it is not a link
+there is no reference at all to AFSocketSourceDriver` (in the example A(_A)
+
 My questions are:
 1.	How can I get Doxygen to behave the same in case 2 as it does in case 1?
 2.	Are there any alternatives to Doxygen that can handle this?
@@ -1763,7 +1780,7 @@ My questions are:
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
                                                 <path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"/>
                                             </svg>
-                                            12
+                                            20
                                         </div>
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
@@ -1775,7 +1792,7 @@ My questions are:
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
                                                 <path fill-rule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v5.5a.25.25 0 01-.25.25h-3.5a.75.75 0 00-.53.22L3.5 11.44V9.25a.75.75 0 00-.75-.75h-1a.25.25 0 01-.25-.25v-5.5zM1.75 1A1.75 1.75 0 000 2.75v5.5C0 9.216.784 10 1.75 10H2v1.543a1.457 1.457 0 002.487 1.03L7.061 10h3.189A1.75 1.75 0 0012 8.25v-5.5A1.75 1.75 0 0010.25 1h-8.5zM14.5 4.75a.25.25 0 00-.25-.25h-.5a.75.75 0 110-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0114.25 12H14v1.543a1.457 1.457 0 01-2.487 1.03L9.22 12.28a.75.75 0 111.06-1.06l2.22 2.22v-2.19a.75.75 0 01.75-.75h1a.25.25 0 00.25-.25v-5.5z"/>
                                             </svg>
-                                            5
+                                            7
                                         </div>
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
@@ -1848,7 +1865,7 @@ Also in the current MonoDevelop AddOns repositories, I couldn't find anything us
             </section>
             <footer>
                 <span>These metrics do not include all private contributions</span>
-                <span>Last updated 2 Mar 2025, 12:15:46 (timezone Europe/Budapest) with lowlighter/metrics@3.34.0</span>
+                <span>Last updated 2 Mar 2025, 13:35:17 (timezone Europe/Budapest) with lowlighter/metrics@3.34.0</span>
             </footer>
         </div>
         <div xmlns="http://www.w3.org/1999/xhtml" id="metrics-end"></div>
